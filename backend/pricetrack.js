@@ -52,4 +52,8 @@ query = query.toLowerCase().replace(/[\(\)]/g, '').replace(/[^a-z0-9]/g, '-').re
     await browser.close();
 };
 
+<<<<<<< HEAD
 getQuotes();
+=======
+getQuotes();
+>>>>>>> 8c22aa0c85c6a6755253b16882535b01d623a196
