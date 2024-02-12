@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 
 const getQuotes = async () => {
-    const query = "oppo enco buds"; // Query as a variable
+    const query = "realme buds"; // Query as a variable
     const encodedQuery = encodeURIComponent(query); // Encode the query
 
     const browser = await puppeteer.launch({
