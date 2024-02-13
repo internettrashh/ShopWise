@@ -120,6 +120,61 @@ app.get("/search/links", async (req, res) => {
 
     await browser.close();
 });
+app.get('/product', async (req, res) => {
+    let query = req.query.q;
+    query = query.toLowerCase().replace(/[\(\)]/g, '').replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+
+    const browser = await puppeteer.launch({
+        headless: false,
+        defaultViewport: null,
+    });
+
+    const page = await browser.newPage();
+
+    await page.goto(`https://pricehistoryapp.com/product/${query}`, {
+        waitUntil: "networkidle0",
+    });
+
+    const productImage = await page.evaluate(() => {
+        const imgNode = document.querySelector("div.relative > span > img");
+        return imgNode ? imgNode.getAttribute("src") : null;
+    });
+
+    const productTitle = await page.evaluate(() => {
+        const titleNode = document.querySelector("h1.font-semibold.text-lg");
+        return titleNode ? titleNode.textContent.trim() : null;
+    });
+
+    await page.waitForSelector("div.text-2xl.font-semibold.relative.false > span");
+
+    const productPrice = await page.evaluate(() => {
+        const priceNode = document.querySelector("div.text-2xl.font-semibold.relative.false > span");
+        return priceNode ? priceNode.innerText.trim() : null;
+    });
+
+    const recommendation = await page.evaluate(() => {
+        const recommendationNode = document.querySelector("p.text-gray-500.dark\\:text-gray-400.text-sm");
+        return recommendationNode ? recommendationNode.innerText.trim() : null;
+    });
+
+    const productLink = await page.evaluate(() => {
+        const linkNode = document.querySelector("a.px-6.py-2.bg-secondary-600.hover\\:bg-secondary-500.text-white.font-medium.rounded");
+        return linkNode ? linkNode.getAttribute("href") : null;
+    });
+
+    const graph = `<iframe src="https://pricehistoryapp.com/embed/${query}" width="100%" height="500" frameborder="0" allowtransparency="true" scrolling="no"></iframe>`;
+
+    await browser.close();
+
+    res.json({
+        productImage,
+        productTitle,
+        productPrice,
+        recommendation,
+        productLink,
+        graph
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
