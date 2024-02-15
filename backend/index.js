@@ -1,10 +1,12 @@
 import express from "express";
+import cors from 'cors';
 import puppeteer from "puppeteer";
 import puppeteerExtra from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 puppeteerExtra.use(StealthPlugin());
 
 const app = express();
+app.use(cors());
 const port = 3001;
 
 app.get("/search", async (req, res) => {
