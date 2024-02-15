@@ -14,7 +14,7 @@ app.get("/search", async (req, res) => {
     const encodedQuery = encodeURIComponent(query); // Encode the query
 
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
     });
 
@@ -53,7 +53,7 @@ app.get("/search/links", async (req, res) => {
     const encodedQuery = encodeURIComponent(query); // Encode the query
 
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
     });
 
@@ -127,7 +127,7 @@ app.get('/product', async (req, res) => {
     query = query.toLowerCase().replace(/[\(\)]/g, '').replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
 
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         defaultViewport: null,
     });
 

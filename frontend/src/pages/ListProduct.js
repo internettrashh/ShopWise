@@ -74,7 +74,12 @@ function ListProduct({ searchQuery }) {
           <div style={{position: 'absolute', top: '0rem', left: '0rem', width: '100%', height: '100%'}}>
            
         
-            <img style={{position: 'absolute', height: '100%', top: '0rem', bottom: '0rem', left: '0rem', maxHeight: '100%', width: '20.31rem', objectFit: 'cover', zIndex: 3}} alt="" src={product.image} />
+          <img 
+  style={{position: 'absolute', height: '100%', top: '0rem', bottom: '0rem', left: '0rem', maxHeight: '100%', width: '20.31rem', objectFit: 'cover', zIndex: 3}} 
+  alt="" 
+  src={product.src} 
+  onError={(e)=>{e.target.onerror = null; e.target.src="default_image_url"}}
+/>
           </div>
           <div style={{position: 'absolute', top: '11.81rem', left: '20.31rem', borderRadius: '10px', backgroundColor: 'rgba(217, 217, 217, 0.76)', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: '0.19rem 0.06rem 0.19rem 0.38rem', whiteSpace: 'nowrap', zIndex: 4}}>
 
